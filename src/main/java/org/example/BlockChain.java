@@ -99,4 +99,19 @@ public class BlockChain {
 
         return true;
     }
+
+    /**
+     * Returns a string containing the size of the chain and
+     * information about every block in the chain.
+     */
+    @Override
+    public String toString() {
+        String output = "Chain Size: " + chainSize + "\n";
+        int count = 1;
+        for (Block block : blocks) {
+            output += "\nBlock " + count + ":\n" + block.toString();
+            count++;
+        }
+        return output;
+    }
 }

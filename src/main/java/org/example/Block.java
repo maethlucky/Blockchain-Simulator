@@ -137,4 +137,16 @@ public class Block {
             }
         }
     }
+
+    /**
+     * Returns a string containing information about the
+     * block (data, prefix, prevHash, and hash)
+     */
+    @Override
+    public String toString() {
+        return "Data: " + data + "\n"
+                + "Prefix: " + prefix + "\n"
+                + "Previous block's hash: " + prevHash + "\n"
+                + "Current block's hash: " + hash + "\n";
+    }
 }

@@ -1,5 +1,102 @@
 package org.example;
 
+import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class BlockChain {
 
+    // ==== ATTRIBUTES ====
+    private List<Block> blocks;
+    private int chainSize;
+
+    // ==== CONSTRUCTOR ====
+    /**
+     * Initializes an empty list for blocks and sets chainSize to 0
+     */
+    public BlockChain() {
+        blocks = new ArrayList<>();
+        chainSize = 0;
+    }
+
+    // ==== GETTERS AND SETTERS ====
+    public List<Block> getBlocks() {
+        return blocks;
+    }
+
+    public void setBlocks(List<Block> blocks) {
+        this.blocks = blocks;
+    }
+
+    public int getChainSize() {
+        return chainSize;
+    }
+
+    public void setChainSize(int chainSize) {
+        this.chainSize = chainSize;
+    }
+
+    // ==== METHODS ====
+    /**
+     * Adds a new block to the chain and updates chainSize
+     */
+    public void addBlock(Block newBlock) {
+        blocks.add(newBlock);
+        chainSize++;
+    }
+
+    /**
+     * Goes through every block in the chain and verifies
+     * their hash values and their previous hash values
+     */
+    public boolean verify() {
+        boolean isGenesisBlock = true;
+        String prevHash = "";
+        String currentHash;
+        char[] hashArray;
+        boolean flag;
+        for (Block block : blocks) {
+            // Generating current block's hash value
+            currentHash = block.getPrevHash() + block.getData()
+                    + block.getTimeStamp() + block.getPow() + block.getPrefix();
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                currentHash = Arrays.toString(md.digest(currentHash.getBytes()));
+            } catch (Exception e) {
+                System.out.println("Could not generate hash");
+                System.exit(1);
+            }
+
+            // Checking generated hash vs. block's stored hash
+            if (!currentHash.equals(block.getHash())) {
+                return false;
+            }
+
+            // Checks previous hash if block is not the genesis block
+            if (isGenesisBlock) {
+                isGenesisBlock = false;
+            } else {
+                if (!prevHash.equals(block.getPrevHash())) {
+                    return false;
+                }
+            }
+            prevHash = currentHash;
+
+            // Checking to see if hash was generated properly
+            hashArray = currentHash.toCharArray();
+            flag = true;
+            for (int i = 0; i < block.getPrefix(); i++) {
+                if (hashArray[i] == '1') {
+                    flag = false;
+                    break;
+                }
+            }
+            if (!flag) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

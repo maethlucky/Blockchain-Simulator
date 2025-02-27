@@ -1,7 +1,6 @@
 package org.example;
 
 import java.security.MessageDigest;
-import java.util.Arrays;
 
 public class Block {
 

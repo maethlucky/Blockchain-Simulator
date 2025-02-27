@@ -17,6 +17,6 @@ public class TestBlockChain {
 
         // Verifying and printing blockchain data
         System.out.println(bc.verify());
-        System.out.println(bc.toString());
+        System.out.println(bc);
     }
 }

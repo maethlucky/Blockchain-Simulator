@@ -61,8 +61,26 @@ public class BlockChain {
             currentHash = block.getPrevHash() + block.getData()
                     + block.getTimeStamp() + block.getPow() + block.getPrefix();
             try {
+
+                // --------------------------------------------------------
+                // I GOT THE FOLLOWING CODE FROM CHATGPT BECAUSE I COULDN'T
+                // FIGURE OUT HOW TO MAKE THE HASH BINARY
+                // --------------------------------------------------------
                 MessageDigest md = MessageDigest.getInstance("SHA-256");
-                currentHash = Arrays.toString(md.digest(currentHash.getBytes()));
+                // Compute the hash and get the byte array
+                byte[] hashBytes = md.digest(currentHash.getBytes());
+
+                // Convert each byte to an 8-bit binary string
+                StringBuilder binaryString = new StringBuilder();
+                for (byte b : hashBytes) {
+                    binaryString.append(String.format("%8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0'));
+                }
+
+                currentHash =  binaryString.toString();
+                // --------------------------------------------------------
+                // END OF CHATGPT CODE
+                // --------------------------------------------------------
+
             } catch (Exception e) {
                 System.out.println("Could not generate hash");
                 System.exit(1);

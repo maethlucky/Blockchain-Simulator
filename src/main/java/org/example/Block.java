@@ -161,8 +161,10 @@ public class Block {
     @Override
     public String toString() {
         return "Data: " + data + "\n"
-                + "Prefix: " + prefix + "\n"
+                + "Time Stamp (ms since UNIX epoch): " + timeStamp + "\n"
+                + "Prefix: " + prefix + " leading zeroes\n"
                 + "Previous block's hash: " + prevHash + "\n"
-                + "Current block's hash: " + hash + "\n";
+                + "Current block's hash: " + hash + "\n"
+                + "Proof of Work: " + pow + "\n";
     }
 }

@@ -101,10 +101,9 @@ public class BlockChain {
             prevHash = currentHash;
 
             // Checking to see if hash was generated properly
-            hashArray = currentHash.toCharArray();
             flag = true;
             for (int i = 0; i < block.getPrefix(); i++) {
-                if (hashArray[i] == '1') {
+                if (block.getHash().charAt(i) == '1') {
                     flag = false;
                     break;
                 }

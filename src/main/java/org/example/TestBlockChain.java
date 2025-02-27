@@ -16,7 +16,11 @@ public class TestBlockChain {
         bc.addBlock(b3);
 
         // Verifying and printing blockchain data
-        System.out.println(bc.verify());
+        if (bc.verify()) {
+            System.out.println("Chain verified");
+        } else {
+            System.out.println("Invalid chain");
+        }
         System.out.println(bc);
     }
 }

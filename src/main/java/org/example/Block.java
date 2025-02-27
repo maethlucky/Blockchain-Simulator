@@ -134,12 +134,11 @@ public class Block {
         boolean flag;
         while (true) {
             hash = generateBlockHash();
-            hashArray = hash.toCharArray();
             flag = true;
 
             // Checks if hash has the correct amount of leading zeroes
             for (int i = 0; i < prefix; i++) {
-                if (hashArray[i] == '1') {
+                if (hash.charAt(i) == '1') {
                     flag = false;
                     break;
                 }

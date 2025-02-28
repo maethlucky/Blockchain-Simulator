@@ -130,7 +130,6 @@ public class Block {
     public String mineBlock() {
         pow = 0;
         String hash;
-        char[] hashArray;
         boolean flag;
         while (true) {
             hash = generateBlockHash();

@@ -53,7 +53,6 @@ public class BlockChain {
         boolean isGenesisBlock = true;
         String prevHash = "";
         String currentHash;
-        char[] hashArray;
         boolean flag;
         for (Block block : blocks) {
             // Generating current block's hash value
